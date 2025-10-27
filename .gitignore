@@ -1,0 +1,6 @@
+#Large Data 
+/GSE180237_RAW/*
+/docker_containers
+
+#MacOS
+.DS_Store
