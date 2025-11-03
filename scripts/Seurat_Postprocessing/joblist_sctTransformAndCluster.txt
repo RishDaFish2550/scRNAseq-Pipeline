@@ -1,0 +1,7 @@
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c P2SKML
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c PSKML
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c PSKMNL
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c PSKNL
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c OSKML
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c OSKMNL
+Rscript /data/250612_pipseeker_seurat_dunnartAnnotJune2025/scripts/runSCTransformAndClusterALLSAMPLES.R -c OSKNL

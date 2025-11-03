@@ -1,0 +1,41 @@
+# README for single cell (PIP-seq) post-processing. 
+# June 16, 2025 Thuy N. Nguyen (thuy@formbio.com)
+
+## NOTE: all of these scripts were developed for analyzing pipseeker outputs of dunnart iPSC and mouse iPSC samples. 
+
+### DOCKER CONTAINERS 
+	
+	- python scripts use: gcr.io/bioinfo-devel/biopybasic
+	- R scripts use: gcr.io/bioinfo-devel/rna_bulk_singlecell
+
+### For some steps, I generated "joblists.txt" with these scripts
+
+STEP 0. Generate statistics of pipseeker runs 
+	
+	(1) Make a tab delimited table named "filelist_path_samplenicknames.txt" where each line has path to directory of pipseeker output, the sample name, and the sample nickname
+	(2) run "python get_pipseeker_metrics.py" - this will generate a single table "TABLE_METRICS_ALL_SAMPLES.csv" 
+	(3) To generate figures, run "python plot_pipseeker_metrics.py" 
+	
+STEP 1.* Convert pipseeker output to a seurat object. For each sample, run: 
+
+	>> Rscript pipseq2seurat.R -i $pathToPipseekerSampleOutputDirectory -p $sampleNameOrNickname -s $kneePlotSensitivityLevel 
+
+STEP 2. Merge seurat objects and generate a violin and scatter plot for QC (note that the seurat object pathnames are hard-coded here). I also took the opportunity to manually add metadata here about each of my samples. 
+
+	>>  Rscript merge_qc_seuratObjects.R
+
+STEP 3. From the RDS file generated of merged seurat objects, I generated subsets per "iPSC treatment cocktail". My goal here was to later integrate each subset to account for batch effects due to samples being from mouse iPSCs vs dunnart iPSCs. This will need to be edited to reflect your experiment and what samples you would like to subset. 
+	
+	>> Rscript makeSubsetRDS.R
+
+STEP 4.* Perform SCTransform, clustering before integration, integration(rPCA), clustering after integration, and DimPlots per subset. I named each subset a "cocktail" that was inputted into this script. This and the paths to the subsetted RDS files from step 3 will likely need to change to accommodate your experiment.
+	
+	>> Rscript runSCTransformAndClusterALLSAMPLES.R --cocktail $nameOfTreatmentCocktailLikePSKML
+
+STEP 5. Generate figures of gene expression for key markers (dot plot, heatmap, violin). The key markers are hardcoded into a vector and will need to change for your experiment. 
+	
+	>> Rscript figures_keymarkers.R
+	
+
+	
+* STEPS WHERE I MADE A JOBLIST AND THEN RAN "bash joblist.txt". I do NOT recommend using parallel. 
