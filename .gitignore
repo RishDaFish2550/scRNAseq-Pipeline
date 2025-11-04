@@ -1,6 +1,7 @@
 #Large Data 
 /GSE180237_RAW/*
 /docker_containers
+/Bacdrop_Seurat/*
 
 #MacOS
 .DS_Store
